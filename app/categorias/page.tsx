@@ -23,6 +23,13 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 
+import runningCI from "../../resources/running.jpg"
+import swimmingCI from "../../resources/swimming.jpg"
+import outdoorsCI from "../../resources/outdoor.jpg"
+import crossfitCI from "../../resources/Crossfit.jpg"
+import fitnessCI from "../../resources/fitness2.jpg"
+import ciclismCI from "../../resources/ciclismo.webp"
+
 // Datos de categorías principales
 const mainCategories = [
   {
@@ -30,7 +37,7 @@ const mainCategories = [
     name: "Running",
     description: "Conquista cada kilómetro con equipamiento diseñado para corredores apasionados",
     icon: Activity,
-    image: "/placeholder.svg?height=400&width=600",
+    image: runningCI,
     gradient: "from-blue-500 to-cyan-500",
     stats: { products: 156, athletes: "25K+", avgRating: 4.8 },
     subcategories: [
@@ -47,7 +54,7 @@ const mainCategories = [
     name: "Ciclismo",
     description: "Pedalea hacia la victoria con gear aerodinámico y de alto rendimiento",
     icon: Bike,
-    image: "/placeholder.svg?height=400&width=600",
+    image: ciclismCI,
     gradient: "from-green-500 to-emerald-500",
     stats: { products: 89, athletes: "18K+", avgRating: 4.9 },
     subcategories: [
@@ -64,7 +71,7 @@ const mainCategories = [
     name: "CrossFit",
     description: "Supera tus límites con equipamiento para entrenamientos de alta intensidad",
     icon: Dumbbell,
-    image: "/placeholder.svg?height=400&width=600",
+    image: crossfitCI,
     gradient: "from-purple-500 to-pink-500",
     stats: { products: 134, athletes: "22K+", avgRating: 4.7 },
     subcategories: [
@@ -81,7 +88,7 @@ const mainCategories = [
     name: "Natación",
     description: "Domina el agua con equipamiento hidrodinámico de competición",
     icon: Waves,
-    image: "/placeholder.svg?height=400&width=600",
+    image: swimmingCI,
     gradient: "from-cyan-500 to-blue-600",
     stats: { products: 67, athletes: "12K+", avgRating: 4.8 },
     subcategories: [
@@ -98,7 +105,7 @@ const mainCategories = [
     name: "Outdoor",
     description: "Explora la naturaleza con equipamiento resistente para aventureros",
     icon: Mountain,
-    image: "/placeholder.svg?height=400&width=600",
+    image: outdoorsCI,
     gradient: "from-orange-500 to-red-500",
     stats: { products: 98, athletes: "15K+", avgRating: 4.6 },
     subcategories: [
@@ -115,7 +122,7 @@ const mainCategories = [
     name: "Fitness & Gym",
     description: "Transforma tu cuerpo con ropa cómoda y funcional para el gimnasio",
     icon: Target,
-    image: "/placeholder.svg?height=400&width=600",
+    image: fitnessCI,
     gradient: "from-indigo-500 to-purple-600",
     stats: { products: 112, athletes: "30K+", avgRating: 4.7 },
     subcategories: [
@@ -367,26 +374,6 @@ export default function CategoriasPage() {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-3xl p-12 text-center border border-orange-500/20">
-          <h2 className="text-3xl font-bold text-white mb-4">¿No encuentras tu disciplina?</h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Estamos constantemente expandiendo nuestro catálogo. Cuéntanos qué deporte practicas y trabajaremos para
-            incluir el equipamiento que necesitas.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-            >
-              Solicitar Categoría
-            </Button>
-            <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link href="/contacto">Contactar Soporte</Link>
-            </Button>
-          </div>
         </div>
       </div>
     </div>

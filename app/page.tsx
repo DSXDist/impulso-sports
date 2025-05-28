@@ -36,6 +36,21 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel"
+import carouselIMG1 from "../resources/carouselIMG1.jpg"
+import carouselIMG2 from "../resources/carouselIMG2.jpg"
+import carouselIMG3 from "../resources/carouselIMG3.webp"
+import carouselIMG4 from "../resources/carouselIMG4.webp"
+import carouselIMG5 from "../resources/carouselIMG5.avif"
+import carouselIMG6 from "../resources/carouselIMG6.webp"
+import carouselIMG7 from "../resources/carouselIMG7.avif"
+
+import runningCI from "../resources/running.jpg"
+import swimmingCI from "../resources/swimming.jpg"
+import outdoorsCI from "../resources/outdoor.jpg"
+import crossfitCI from "../resources/Crossfit.jpg"
+import fitnessCI from "../resources/fitness2.jpg"
+import ciclismCI from "../resources/ciclismo.webp"
+
 
 export default function ImpulsoSportsHome() {
   const { state, toggleCart } = useCart()
@@ -46,16 +61,32 @@ export default function ImpulsoSportsHome() {
   // Imágenes para el carrusel del hero
   const heroImages = [
     {
-      src: "/placeholder.svg?height=600&width=500",
+      src: carouselIMG7,
       alt: "Atleta en acción 1",
     },
     {
-      src: "/placeholder.svg?height=600&width=500&2",
+      src: carouselIMG2,
       alt: "Atleta en acción 2",
     },
     {
-      src: "/placeholder.svg?height=600&width=500&3",
+      src: carouselIMG3,
       alt: "Atleta en acción 3",
+    },
+    {
+      src: carouselIMG4,
+      alt: "Atleta en acción 4",
+    },
+    {
+      src: carouselIMG5,
+      alt: "Atleta en acción 5",
+    },
+    {
+      src: carouselIMG6,
+      alt: "Atleta en acción 6",
+    },
+    {
+      src: carouselIMG1,
+      alt: "Atleta en acción 7",
     },
   ]
 
@@ -237,42 +268,42 @@ export default function ImpulsoSportsHome() {
                 title: "Running",
                 description: "Zapatillas y ropa técnica para corredores",
                 color: "from-blue-500 to-cyan-500",
-                image: "/placeholder.svg?height=300&width=400",
+                image: runningCI,
               },
               {
                 icon: Bike,
                 title: "Ciclismo",
                 description: "Equipamiento aerodinámico y cómodo",
                 color: "from-green-500 to-emerald-500",
-                image: "/placeholder.svg?height=300&width=400",
+                image: ciclismCI,
               },
               {
                 icon: Waves,
                 title: "Natacion",
                 description: "Equipamiento hidrodinámico de competición",
                 color: "from-cyan-500 to-blue-600",
-                image: "/placeholder.svg?height=300&width=400",
+                image: swimmingCI,
               },
               {
                 icon: Mountain,
                 title: "Outdoor",
                 description: "Ropa resistente para entrenamientos intensos",
                 color: "from-orange-500 to-red-500",
-                image: "/placeholder.svg?height=300&width=400",
+                image: outdoorsCI,
               },
               {
                 icon: Dumbbell,
                 title: "CrossFit",
                 description: "Equipamiento resistente para aventureros",
                 color: "from-purple-500 to-pink-500",
-                image: "/placeholder.svg?height=300&width=400",
+                image: crossfitCI,
               },
               {
                 icon: Target,
                 title: "Fitness & Gym",
                 description: "Ropa cómoda y funcional para el gimnasio",
                 color: "from-indigo-500 to-purple-600",
-                image: "/placeholder.svg?height=300&width=400",
+                image: fitnessCI,
               },
             ].map((category, index) => (
               <Card
@@ -387,69 +418,7 @@ export default function ImpulsoSportsHome() {
           </div>
         </div>
       </section>
-
-      {/* Consejos de Entrenamiento */}
-      <section id="entrenamiento" className="py-20 bg-black/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Entrena Como Un <span className="text-orange-400">Profesional</span>
-            </h2>
-            <p className="text-xl text-gray-300">Consejos y rutinas de expertos para maximizar tu rendimiento</p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              {[
-                {
-                  icon: Target,
-                  title: "Establece Metas Claras",
-                  description: "Define objetivos específicos y medibles para mantener tu motivación alta.",
-                },
-                {
-                  icon: Heart,
-                  title: "Monitorea Tu Progreso",
-                  description: "Usa tecnología para seguir tu frecuencia cardíaca y rendimiento.",
-                },
-                {
-                  icon: Trophy,
-                  title: "Celebra Tus Logros",
-                  description: "Reconoce cada mejora, por pequeña que sea, en tu camino al éxito.",
-                },
-              ].map((tip, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-4 p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <tip.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">{tip.title}</h3>
-                    <p className="text-gray-300">{tip.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative">
-              <Image
-                src="/placeholder.svg?height=500&width=600"
-                alt="Entrenamiento profesional"
-                width={600}
-                height={500}
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl" />
-              <Button className="absolute bottom-6 left-6 bg-white/20 backdrop-blur-md hover:bg-white/30">
-                <Play className="w-5 h-5 mr-2" />
-                Ver Rutina Completa
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
       {/* Comunidad */}
       <section id="comunidad" className="py-20">
         <div className="container mx-auto px-4">
@@ -498,7 +467,7 @@ export default function ImpulsoSportsHome() {
       {/* Footer */}
       <footer className="bg-black/40 border-t border-white/10 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
@@ -509,7 +478,6 @@ export default function ImpulsoSportsHome() {
               <p className="text-gray-400 mb-4">
                 Equipamiento deportivo de alta calidad para atletas que nunca se rinden.
               </p>
-              <div className="flex space-x-4">{/* Social media icons would go here */}</div>
             </div>
 
             <div>
@@ -572,23 +540,6 @@ export default function ImpulsoSportsHome() {
                   </Link>
                 </li>
               </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Newsletter</h4>
-              <p className="text-gray-400 mb-4">Recibe las últimas novedades y ofertas exclusivas</p>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Tu email"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                />
-                <Button
-                  size="icon"
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
             </div>
           </div>
 

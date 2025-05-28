@@ -32,6 +32,8 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 
+import carouselIMG2 from "../../resources/carouselIMG2.jpg"
+
 const deportes = [
   { value: "running", label: "Running", icon: "🏃‍♂️" },
   { value: "ciclismo", label: "Ciclismo", icon: "🚴‍♂️" },
@@ -208,7 +210,7 @@ export default function RegistroPage() {
 
           <div className="relative">
             <Image
-              src="/placeholder.svg?height=400&width=500"
+              src={carouselIMG2}
               alt="Comunidad de atletas"
               width={500}
               height={400}

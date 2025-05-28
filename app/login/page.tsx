@@ -13,6 +13,8 @@ import { Eye, EyeOff, Mail, Lock, Zap, ArrowLeft, Chrome, Facebook, Apple, LogIn
 import Link from "next/link"
 import Image from "next/image"
 
+import carouselIMG1 from "../../resources/carouselIMG1.jpg"
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -105,13 +107,13 @@ export default function LoginPage() {
 
           <div className="relative">
             <Image
-              src="/placeholder.svg?height=400&width=500"
+              src= {carouselIMG1}
               alt="Atleta entrenando"
               width={500}
               height={400}
               className="rounded-2xl shadow-2xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl" />
+            <div className="absolute inset-0 rounded-2xl" />
           </div>
         </div>
 
