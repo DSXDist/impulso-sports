@@ -80,11 +80,15 @@ WSGI_APPLICATION = 'api_deportes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'API_Deportes',       # Nombre de tu base de datos
-        'USER': 'postgres',         # Usuario de PostgreSQL (ej: postgres o el tuyo)
+        'NAME': 'postgres',       # Nombre de tu base de datos
+        'USER': 'postgres.gnjgkqqfbmecnjdrcfua',         # Usuario de PostgreSQL (ej: postgres o el tuyo)
         'PASSWORD': 'Erms2003',  # Contraseña del usuario
-        'HOST': 'localhost',          # Deja esto así si está en tu máquina
+        'HOST': 'aws-0-us-east-2.pooler.supabase.com',          # Deja esto así si está en tu máquina
         'PORT': '5432', 
+        'OPTIONS': {
+            'sslmode': 'require',
+            'options': '-c search_path=public'  # Obligatorio para conexión segura
+        }
     }
 }
 
