@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'api_deportes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'API_Deportes',       # Nombre de tu base de datos
+        'USER': 'postgres',         # Usuario de PostgreSQL (ej: postgres o el tuyo)
+        'PASSWORD': 'Erms2003',  # Contraseña del usuario
+        'HOST': 'localhost',          # Deja esto así si está en tu máquina
+        'PORT': '5432', 
     }
 }
 
