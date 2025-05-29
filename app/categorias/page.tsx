@@ -158,9 +158,6 @@ export default function CategoriasPage() {
               <Link href="/productos" className="text-white hover:text-orange-400 transition-colors">
                 Productos
               </Link>
-              <Link href="/entrenamiento" className="text-white hover:text-orange-400 transition-colors">
-                Entrenamiento
-              </Link>
               <Link href="/comunidad" className="text-white hover:text-orange-400 transition-colors">
                 Comunidad
               </Link>

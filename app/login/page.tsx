@@ -56,12 +56,28 @@ export default function LoginPage() {
     if (!validateForm()) return
 
     setIsLoading(true)
-    // Simular llamada a API
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setIsLoading(false)
 
-    // Aquí iría la lógica de autenticación real
-    console.log("Login attempt:", formData)
+    await fetch('http://localhost:8000/api/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('userData', JSON.stringify(data))
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    setIsLoading(false)
+    window.location.href = "/"
   }
 
   const handleSocialLogin = (provider: string) => {
@@ -107,7 +123,7 @@ export default function LoginPage() {
 
           <div className="relative">
             <Image
-              src= {carouselIMG1}
+              src={carouselIMG1}
               alt="Atleta entrenando"
               width={500}
               height={400}

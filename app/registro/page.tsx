@@ -153,19 +153,53 @@ export default function RegistroPage() {
     if (!validateStep(currentStep)) return
 
     setIsLoading(true)
-    // Simular llamada a API
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await fetch('http://localhost:8000/api/registro/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        {
+          email: formData.email,
+          nombre: formData.firstName,
+          apellido: formData.lastName,
+          password: formData.password,
+          ubicacion: formData.ubicacion,
+          genero: formData.genero,
+          fecha_nacimiento: formData.fechaNacimiento
+        },
+      )
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    const userData = await fetch('http://localhost:8000/api/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    console.log('ReturnedData: ', userData)
+
+    localStorage.setItem('userData', JSON.stringify(userData))
     setIsLoading(false)
-
-    // Aquí iría la lógica de registro real
-    console.log("Registration data:", formData)
-
-    window.location.href = "/"
-  }
-
-  const handleSocialRegister = (provider: string) => {
-    console.log(`Register with ${provider}`)
-    // Aquí iría la lógica de registro social
   }
 
   return (
@@ -426,11 +460,10 @@ export default function RegistroPage() {
                         {niveles.map((nivel) => (
                           <div
                             key={nivel.value}
-                            className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                              formData.nivel === nivel.value
-                                ? "border-orange-500 bg-orange-500/20"
-                                : "border-white/20 hover:border-white/40"
-                            }`}
+                            className={`p-3 rounded-lg border cursor-pointer transition-colors ${formData.nivel === nivel.value
+                              ? "border-orange-500 bg-orange-500/20"
+                              : "border-white/20 hover:border-white/40"
+                              }`}
                             onClick={() => handleInputChange("nivel", nivel.value)}
                           >
                             <div className="text-white font-medium text-sm">{nivel.label}</div>
@@ -447,11 +480,10 @@ export default function RegistroPage() {
                         {objetivos.map((objetivo) => (
                           <div
                             key={objetivo.value}
-                            className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                              formData.objetivos.includes(objetivo.value)
-                                ? "border-orange-500 bg-orange-500/20"
-                                : "border-white/20 hover:border-white/40"
-                            }`}
+                            className={`p-3 rounded-lg border cursor-pointer transition-colors ${formData.objetivos.includes(objetivo.value)
+                              ? "border-orange-500 bg-orange-500/20"
+                              : "border-white/20 hover:border-white/40"
+                              }`}
                             onClick={() => toggleObjetivo(objetivo.value)}
                           >
                             <div className="flex items-center space-x-2">

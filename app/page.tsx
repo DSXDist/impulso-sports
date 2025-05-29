@@ -22,6 +22,7 @@ import {
   ShoppingCart,
   Waves,
   Mountain,
+  User,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -90,6 +91,11 @@ export default function ImpulsoSportsHome() {
     },
   ]
 
+  const userDataString = localStorage.getItem('userData')
+  const userData = userDataString ? JSON.parse(userDataString) : null
+
+  console.log(userData)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -115,8 +121,8 @@ export default function ImpulsoSportsHome() {
               </Link>
             </nav>
 
-            <div className="flex items-center space-x-4">
-                <div className="relative">
+            <div className="flex items-center space-x-2">
+              <div className="relative">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -128,15 +134,14 @@ export default function ImpulsoSportsHome() {
                 </Button>
                 {showSearch && (
                   <Input
-                  autoFocus
-                  type="text"
-                  placeholder="Buscar productos..."
-                  className="absolute right-0 top-12 w-64 bg-black/80 border-white/20 text-white placeholder:text-gray-400 z-50 transition-all"
-                  onBlur={() => setShowSearch(false)}
+                    autoFocus
+                    type="text"
+                    placeholder="Buscar productos..."
+                    className="absolute right-0 top-12 w-64 bg-black/80 border-white/20 text-white placeholder:text-gray-400 z-50 transition-all"
+                    onBlur={() => setShowSearch(false)}
                   />
                 )}
-                </div>
-              {/* Update the Bell button in the header to show notification count and link to notifications page */}
+              </div>
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 relative" asChild>
                 <Link href="/notificaciones">
                   <Bell className="w-5 h-5" />
@@ -163,12 +168,21 @@ export default function ImpulsoSportsHome() {
                 </Button>
                 <CartDropdown />
               </div>
-              <Button
-                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-                asChild
-              >
-                <Link href="/login">Únete</Link>
-              </Button>
+              {!userData ? (
+                <Button
+                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+                  asChild
+                >
+                  <Link href="/login">Únete</Link>
+                </Button>
+              ) : (
+                <Link href='/login' className="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 rounded-lg">
+                  <User className="w-5 h-5 text-white" />
+                  <span className="text-white font-semibold">
+                    {userData.usuario.nombre}
+                  </span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -195,21 +209,15 @@ export default function ImpulsoSportsHome() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-lg px-8"
-                >
-                  <Play className="w-5 h-5 mr-2" />
-                  Explorar Colección
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/20 text-black hover:bg-white/10 text-lg px-8"
-                >
-                  Ver en Acción
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </Button>
+                <Link href='/productos'>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-lg px-8"
+                  >
+                    <Play className="w-5 h-5 mr-2" />
+                    Explorar Productos
+                  </Button>
+                </Link>
               </div>
               <div className="flex items-center space-x-8 pt-4 ml-4">
                 <div className="text-center">
@@ -325,9 +333,11 @@ export default function ImpulsoSportsHome() {
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold text-white mb-2">{category.title}</h3>
                   <p className="text-gray-300 mb-4">{category.description}</p>
-                  <Button variant="ghost" className="text-orange-400 hover:text-orange-300 p-0">
-                    Explorar <ChevronRight className="w-4 h-4 ml-1" />
-                  </Button>
+                  <Link href='/productos'>
+                    <Button variant="ghost" className="text-orange-400 hover:text-orange-300 p-0">
+                      Explorar <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -410,15 +420,15 @@ export default function ImpulsoSportsHome() {
           </div>
           <div className="flex justify-end mt-8 mr-4">
             <Link
-            href="/productos"
-            className="text-sky-400 hover:text-white transition-colors font-semibold"
+              href="/productos"
+              className="text-sky-400 hover:text-white transition-colors font-semibold"
             >
-            Ver más productos
+              Ver más productos
             </Link>
           </div>
         </div>
       </section>
-      
+
       {/* Comunidad */}
       <section id="comunidad" className="py-20">
         <div className="container mx-auto px-4">
