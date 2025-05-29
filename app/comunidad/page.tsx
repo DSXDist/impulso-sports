@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -28,6 +28,7 @@ import {
   Send,
   Crown,
   Activity,
+  User,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -195,6 +196,34 @@ export default function ComunidadPage() {
     setLikedPosts((prev) => (prev.includes(postId) ? prev.filter((id) => id !== postId) : [...prev, postId]))
   }
 
+  const userDataString = localStorage.getItem('userData')
+  const userData = userDataString ? JSON.parse(userDataString) : null
+
+  const getPost = async () => {
+    const nose = await fetch('http://localhost:8000/api/publicaciones/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userData?.access || ''}`,
+      },
+    })
+    const data = await nose.json()
+    return data
+  }
+
+  const [recentPosts, setPost] = useState<any[]>([])
+  useEffect(() => {
+    getPost()
+      .then(data => {
+        // Si data no es un array, usa []
+        setPost(Array.isArray(data) ? data : [])
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error)
+        setPost([]) // Asegura que products sea un array en caso de error
+      })
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -216,22 +245,23 @@ export default function ComunidadPage() {
               <Link href="/categorias" className="text-white hover:text-orange-400 transition-colors">
                 Categorías
               </Link>
-              <Link href="/entrenamiento" className="text-white hover:text-orange-400 transition-colors">
-                Entrenamiento
-              </Link>
             </nav>
 
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-                <Search className="w-5 h-5" />
-              </Button>
-              <Button
-                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-                asChild
-              >
-                <Link href="/login">Unirse</Link>
-              </Button>
-            </div>
+            {!userData ? (
+                <Button
+                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+                  asChild
+                >
+                  <Link href="/login">Únete</Link>
+                </Button>
+              ) : (
+                <Link href='/login' className="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 rounded-lg">
+                  <User className="w-5 h-5 text-white" />
+                  <span className="text-white font-semibold">
+                    {userData.usuario.nombre}
+                  </span>
+                </Link>
+              )}
           </div>
         </div>
       </header>
@@ -286,21 +316,16 @@ export default function ComunidadPage() {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 bg-white/5 border border-white/10">
+          <TabsList className="grid w-full grid-cols-2 bg-white/5 border border-white/10">
             <TabsTrigger value="feed" className="data-[state=active]:bg-orange-500">
               <MessageCircle className="w-4 h-4 mr-2" />
               Feed
-            </TabsTrigger>
-            
-            <TabsTrigger value="desafios" className="data-[state=active]:bg-orange-500">
-              <Trophy className="w-4 h-4 mr-2" />
-              Desafíos
             </TabsTrigger>
             <TabsTrigger value="eventos" className="data-[state=active]:bg-orange-500">
               <Calendar className="w-4 h-4 mr-2" />
               Eventos
             </TabsTrigger>
-            
+
           </TabsList>
 
           {/* Feed Tab */}
@@ -325,23 +350,34 @@ export default function ComunidadPage() {
                           rows={3}
                         />
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                              <Camera className="w-4 h-4 mr-2" />
-                              Foto
-                            </Button>
-                            <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                              <Video className="w-4 h-4 mr-2" />
-                              Video
-                            </Button>
-                            <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                              <Target className="w-4 h-4 mr-2" />
-                              Logro
-                            </Button>
-                          </div>
                           <Button
                             className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
                             disabled={!newPost.trim()}
+                            onClick={async () => {
+                              const nose = await fetch('http://localhost:8000/api/publicaciones/', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  'Authorization': `Bearer ${userData?.access || ''}`,
+                                },
+                                body: JSON.stringify({
+                                  autor: userData.usuario.nombre,
+                                  contenido: newPost,
+                                  cantidad_likes: 0,
+                                  tipo_publicacion: "review", // Puedes cambiar esto según el tipo de publicación
+                                }),
+                              })
+                                .then(response => response.json())
+                                .then(data => {
+                                  console.log("Post publicado:", data);
+                                  setPost((prevPosts) => [data, ...prevPosts]); // Agregar el nuevo post al inicio
+                                  return data;
+                                })
+                                .catch(error => {
+                                  console.log(error)
+                                });
+                              setNewPost("") // Limpiar el campo después de publicar
+                            }}
                           >
                             <Send className="w-4 h-4 mr-2" />
                             Publicar
@@ -357,33 +393,20 @@ export default function ComunidadPage() {
                   <Card key={post.id} className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4 mb-4">
-                        <Avatar>
-                          <AvatarImage src={post.author.avatar || "/placeholder.svg"} />
-                          <AvatarFallback>
-                            {post.author.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
                         <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-1">
-                            <h4 className="font-semibold text-white">{post.author.name}</h4>
-                            <Badge className="bg-orange-500/20 text-orange-400 text-xs">{post.author.badge}</Badge>
-                          </div>
-                          <p className="text-sm text-gray-400">{post.timestamp}</p>
+                          <p className="text-sm text-gray-400">{post.fecha_creacion.slice(0, 10)}</p>
                         </div>
                         <Badge variant="outline" className="border-white/20 text-gray-300 capitalize">
-                          {post.category}
+                          {post.tipo_publicacion}
                         </Badge>
                       </div>
 
-                      <p className="text-white mb-4">{post.content}</p>
+                      <p className="text-white mb-4">{post.contenido}</p>
 
-                      {post.image && (
+                      {post.url_foto && (
                         <div className="mb-4 rounded-lg overflow-hidden">
                           <Image
-                            src={post.image || "/placeholder.svg"}
+                            src={post.url_foto || "/placeholder.svg"}
                             alt="Post image"
                             width={500}
                             height={300}
@@ -401,15 +424,7 @@ export default function ComunidadPage() {
                             onClick={() => toggleLike(post.id)}
                           >
                             <Heart className={`w-4 h-4 mr-2 ${likedPosts.includes(post.id) ? "fill-current" : ""}`} />
-                            {post.likes + (likedPosts.includes(post.id) ? 1 : 0)}
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                            <MessageSquare className="w-4 h-4 mr-2" />
-                            {post.comments}
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                            <Share2 className="w-4 h-4 mr-2" />
-                            {post.shares}
+                            {post.cantidad_likes + (likedPosts.includes(post.id) ? 1 : 0)}
                           </Button>
                         </div>
                       </div>

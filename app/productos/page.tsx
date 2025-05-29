@@ -205,7 +205,7 @@ export default function ProductosPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const [priceRange, setPriceRange] = useState([0, 5000])
+  const [priceRange, setPriceRange] = useState([0, 1500])
   const [sortBy, setSortBy] = useState("popularity")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [showFilters, setShowFilters] = useState(false)
@@ -394,7 +394,7 @@ export default function ProductosPage() {
                 <div className="mb-6">
                   <h4 className="text-white font-medium mb-3">Rango de Precio</h4>
                   <div className="space-y-4">
-                    <Slider value={priceRange} onValueChange={setPriceRange} max={5000} step={10} className="w-full" />
+                    <Slider value={priceRange} onValueChange={setPriceRange} max={1500} step={10} className="w-full" />
                     <div className="flex items-center justify-between text-sm text-gray-300">
                       <span>${priceRange[0]}</span>
                       <span>${priceRange[1]}</span>

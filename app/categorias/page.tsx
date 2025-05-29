@@ -40,12 +40,6 @@ const mainCategories = [
     image: runningCI,
     gradient: "from-blue-500 to-cyan-500",
     stats: { products: 156, athletes: "25K+", avgRating: 4.8 },
-    subcategories: [
-      { name: "Trail Running", products: 45, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Maratón", products: 38, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Velocidad", products: 32, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Running Urbano", products: 41, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Zapatillas IMPULSO Pro", "Camisetas Técnicas", "Shorts de Running"],
     benefits: ["Tecnología de amortiguación", "Transpirabilidad máxima", "Durabilidad extrema"],
   },
@@ -57,12 +51,6 @@ const mainCategories = [
     image: ciclismCI,
     gradient: "from-green-500 to-emerald-500",
     stats: { products: 89, athletes: "18K+", avgRating: 4.9 },
-    subcategories: [
-      { name: "Carretera", products: 28, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Montaña", products: 25, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Urbano", products: 20, image: "/placeholder.svg?height=200&width=300" },
-      { name: "BMX", products: 16, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Maillots Aerodinámicos", "Culotes de Compresión", "Zapatillas Clipless"],
     benefits: ["Aerodinámica optimizada", "Compresión muscular", "Ventilación estratégica"],
   },
@@ -74,12 +62,6 @@ const mainCategories = [
     image: crossfitCI,
     gradient: "from-purple-500 to-pink-500",
     stats: { products: 134, athletes: "22K+", avgRating: 4.7 },
-    subcategories: [
-      { name: "Entrenamiento Funcional", products: 42, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Levantamiento", products: 35, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Cardio Intenso", products: 31, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Competición", products: 26, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Shorts de Entrenamiento", "Tops de Compresión", "Zapatillas Multideporte"],
     benefits: ["Resistencia extrema", "Flexibilidad total", "Soporte muscular"],
   },
@@ -91,12 +73,6 @@ const mainCategories = [
     image: swimmingCI,
     gradient: "from-cyan-500 to-blue-600",
     stats: { products: 67, athletes: "12K+", avgRating: 4.8 },
-    subcategories: [
-      { name: "Piscina", products: 25, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Aguas Abiertas", products: 18, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Triatlón", products: 15, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Entrenamiento", products: 9, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Trajes de Baño", "Gafas de Natación", "Gorros Técnicos"],
     benefits: ["Hidrodinámica avanzada", "Secado rápido", "Protección UV"],
   },
@@ -108,12 +84,6 @@ const mainCategories = [
     image: outdoorsCI,
     gradient: "from-orange-500 to-red-500",
     stats: { products: 98, athletes: "15K+", avgRating: 4.6 },
-    subcategories: [
-      { name: "Senderismo", products: 32, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Escalada", products: 24, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Camping", products: 22, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Aventura", products: 20, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Chaquetas Impermeables", "Pantalones Técnicos", "Calzado de Montaña"],
     benefits: ["Resistencia al clima", "Durabilidad extrema", "Comodidad prolongada"],
   },
@@ -125,12 +95,6 @@ const mainCategories = [
     image: fitnessCI,
     gradient: "from-indigo-500 to-purple-600",
     stats: { products: 112, athletes: "30K+", avgRating: 4.7 },
-    subcategories: [
-      { name: "Entrenamiento", products: 38, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Yoga", products: 28, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Pilates", products: 24, image: "/placeholder.svg?height=200&width=300" },
-      { name: "Wellness", products: 22, image: "/placeholder.svg?height=200&width=300" },
-    ],
     featured: ["Leggings de Yoga", "Tops Deportivos", "Zapatillas de Entrenamiento"],
     benefits: ["Flexibilidad máxima", "Transpirabilidad", "Estilo urbano"],
   },
@@ -270,35 +234,6 @@ export default function CategoriasPage() {
               {/* Expanded Content */}
               {selectedCategory === category.id && (
                 <CardContent className="p-6 space-y-6">
-                  {/* Subcategories */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                      <Target className="w-5 h-5 mr-2 text-orange-400" />
-                      Subcategorías
-                    </h4>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {category.subcategories.map((sub, subIndex) => (
-                        <div
-                          key={subIndex}
-                          className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
-                        >
-                          <Image
-                            src={sub.image || "/placeholder.svg"}
-                            alt={sub.name}
-                            width={50}
-                            height={50}
-                            className="rounded-lg object-cover"
-                          />
-                          <div className="flex-1">
-                            <h5 className="text-white font-medium">{sub.name}</h5>
-                            <p className="text-sm text-gray-400">{sub.products} productos</p>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-gray-400" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
                   {/* Featured Products */}
                   <div>
                     <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
@@ -344,9 +279,6 @@ export default function CategoriasPage() {
                         Ver Todos los Productos
                         <ChevronRight className="w-4 h-4 ml-2" />
                       </Link>
-                    </Button>
-                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-                      <Link href={`/guias/${category.id}`}>Guía de Compra</Link>
                     </Button>
                   </div>
                 </CardContent>

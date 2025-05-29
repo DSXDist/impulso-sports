@@ -28,7 +28,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { CartDropdown } from "@/components/cart-dropdown"
 import { useCart } from "@/contexts/cart-context"
-import { useNotifications } from "@/contexts/notifications-context"
 import { useState } from "react"
 import {
   Carousel,
@@ -56,7 +55,6 @@ import ciclismCI from "../resources/ciclismo.webp"
 export default function ImpulsoSportsHome() {
   const { state, toggleCart } = useCart()
   // In the component, add the notifications functionality to the header
-  const { state: notificationsState } = useNotifications()
   const [showSearch, setShowSearch] = useState(false)
 
   // Imágenes para el carrusel del hero
@@ -141,18 +139,6 @@ export default function ImpulsoSportsHome() {
                     onBlur={() => setShowSearch(false)}
                   />
                 )}
-              </div>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 relative" asChild>
-                <Link href="/notificaciones">
-                  <Bell className="w-5 h-5" />
-                  {notificationsState.unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {notificationsState.unreadCount}
-                    </span>
-                  )}
-                </Link>
-              </Button>
-              <div className="relative">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -494,32 +480,32 @@ export default function ImpulsoSportsHome() {
               <h4 className="text-white font-semibold mb-4">Productos</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     Running
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     Ciclismo
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     CrossFit
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     Natacion
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     Outdors
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-orange-400 transition-colors">
+                  <Link href="/productos" className="hover:text-orange-400 transition-colors">
                     Fitnes & Gym
                   </Link>
                 </li>
